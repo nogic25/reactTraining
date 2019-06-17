@@ -33,9 +33,9 @@ describe('App', () => {
             expect(app.find('.btn').at(0).text()).toEqual('Submit');
         });
     });
-    describe('when creting a note', () => {
+    describe('when creating a note', () => {
         let testNote = 'test note';
-        //simulate behavior of clicking on the button
+        //simulate behavior of writing the note
         beforeEach(() => {
             //fires a change event on the actual change. And second value is an object that represents what we actually want to change this component with
             //just like a form control gives back it value through it targets event, we can specify that it value should change by providing simulate function
@@ -54,19 +54,34 @@ describe ('and submitting th new note', ()=>{
     app.find('.btn').at(0).simulate('click');
    });
 
+   afterEach(()=>{
+      app.find('.btn').at(1).simulate('click');
+   });
+
    it ('adds a new to state',()=>{
        console.log(app.state());
        expect(app.state().notes[0].text).toEqual(testNote);
    });
+describe ('and remounting the component', ()=>{
+    let app2;
+    beforeEach(()=>{
+        app2=mount(<App />);
+    });
+    it ('reads the stored note cookies',()=>{
+        //console.log(app2.state());
+        expect(app2.state().notes).toEqual([{text: testNote}]);
+    });
+});
+
 
    describe ('and clickng the clear button',()=>{
        beforeEach(()=>{
-        app.find('.btn').at(2).simulate('click');
+        app.find('.btn').at(1).simulate('click');
        });
-      /* it ( 'clear the notes in a state',()=>{
-           console.log(app.state());
+      it ( 'clear the notes in a state',()=>{
+        //    console.log(app.state());
            expect(app.state().notes).toEqual([]);
-       }) */
+       }) 
     });
 });  
 

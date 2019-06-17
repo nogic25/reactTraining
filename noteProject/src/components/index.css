@@ -11,3 +11,9 @@ body{
     padding: 8px;
     margin: 30px;
 }
+
+.divider{
+    width:10px;
+    height:auto;
+    display:inline-block;
+}
