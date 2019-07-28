@@ -34,7 +34,7 @@ class Stack extends Component {
 }
 // state represents the redux store and state represents the props. We need to map state to stack
 function mapsStateToProps(state){
-    return {stack: state}
+    return {stack: state.stack}
 }
 
 export default connect(mapsStateToProps,null)(Stack);

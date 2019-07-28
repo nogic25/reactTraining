@@ -6,17 +6,20 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import stacks from '../data/stacks.json';
 import {Link} from 'react-router-dom';
-import { setStack } from '../actions';
+import { setStack,loadStack } from '../actions';
 
 
 class Stacklist extends Component {
+    componentDidMount(){
+        if (this.props.stacks.length ===0)this.props.loadStack(stacks);
+    }
  
     render (){
         //console.log('stackListProps',this.props)
         return(
             <div>
                 {
-                    stacks.map(stack=>{
+                   this.props.stacks.map(stack=>{
                         return(
                             <Link 
                 to='/stack' 
@@ -35,6 +38,10 @@ class Stacklist extends Component {
     }
 }
 
+function mapsStateToProps(state){
+    return {stacks: state.stacks}
+}
+
 //function describes what function creators are avalible in the component inorderto to dispatch
 //actions to the redux store. Dispatching the action is setting the action to the reducer,
 //so reducer knows how to update the state of the component
@@ -46,4 +53,4 @@ return bindActionCreators({setStack}, dispatch)
 };
 */
 
-export default connect(null,{setStack})(Stacklist);
+export default connect(mapsStateToProps,{setStack,loadStack})(Stacklist);
